@@ -1,5 +1,9 @@
-package com.marand.auditer.demo;
+package com.marand.auditor;
 
+import javax.validation.Valid;
+
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,9 +29,9 @@ public class AuditController
   }
 
   @PostMapping
-  public void send(@RequestBody final AuditDetails auditDetails)
+  @ApiOperation(value = "Post Audit Info")
+  public void send(@ApiParam(name = "auditInfo", required = true) @Valid @RequestBody final AuditInfo auditInfo)
   {
-    System.out.println("Sending a transaction.");
-    jmsTemplate.convertAndSend("auditQueue", auditDetails);
+    jmsTemplate.convertAndSend("auditQueue", auditInfo);
   }
 }

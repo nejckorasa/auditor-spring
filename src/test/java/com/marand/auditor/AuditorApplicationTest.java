@@ -1,4 +1,4 @@
-package com.marand.auditer.demo;
+package com.marand.auditor;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class AuditorApplicationTests
+public class AuditorApplicationTest
 {
 
 	@Test
