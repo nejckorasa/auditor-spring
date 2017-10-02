@@ -1,10 +1,11 @@
 package com.marand.auditor
 
-import com.marand.auditor.db.AuditInfoRepository
 import com.marand.auditor.dto.AuditInfo
 import org.slf4j.LoggerFactory
 import org.springframework.jms.annotation.JmsListener
 import org.springframework.stereotype.Component
+
+
 
 
 /**
@@ -12,16 +13,14 @@ import org.springframework.stereotype.Component
  */
 
 @Component
-class AuditDetailsReceiver(private val auditInfoRepository: AuditInfoRepository) {
+class AuditReceiver(private val auditService: AuditService) {
 
-    companion object {
-        private val LOG = LoggerFactory.getLogger(AuditDetailsReceiver::class.java)
-    }
+    companion object { private val LOG = LoggerFactory.getLogger(AuditReceiver::class.java) }
 
     @JmsListener(destination = "auditQueue", containerFactory = "myFactory")
     fun receiveMessage(auditInfo: AuditInfo) {
 
         LOG.info("Received [$auditInfo]")
-        auditInfoRepository.save(AuditInfoMapper.fromDto(auditInfo))
+        auditService.audit(auditInfo)
     }
 }
