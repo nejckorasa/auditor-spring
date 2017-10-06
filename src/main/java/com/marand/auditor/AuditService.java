@@ -18,6 +18,4 @@ public interface AuditService
   void recover(Exception ex, AuditInfo auditInfo) throws Exception;
 
   void auditBatch(final Collection<AuditInfo> auditInfos) throws Exception;
-
-  void recoverBatch(Exception ex, Collection<AuditInfo> auditInfos) throws Exception;
 }

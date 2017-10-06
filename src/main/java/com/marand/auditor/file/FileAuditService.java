@@ -44,8 +44,6 @@ public class FileAuditService implements AuditService
   }
 
   @Override
-  @Async
-  @Retryable
   public void auditBatch(final Collection<AuditInfo> auditInfos) throws Exception
   {
     for (final AuditInfo auditInfo : auditInfos)
@@ -59,12 +57,5 @@ public class FileAuditService implements AuditService
   public void recover(final Exception ex, final AuditInfo auditInfo) throws JsonProcessingException
   {
     auditRecovery.logFailed(auditInfo, ex);
-  }
-
-  @Override
-  @Recover
-  public void recoverBatch(final Exception ex, final Collection<AuditInfo> auditInfos) throws Exception
-  {
-    auditInfos.forEach(a -> auditRecovery.logFailed(a, ex));
   }
 }

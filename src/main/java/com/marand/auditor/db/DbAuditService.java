@@ -13,7 +13,6 @@ import com.marand.auditor.dto.AuditInfoMapper;
 import org.springframework.context.annotation.Profile;
 import org.springframework.retry.annotation.Recover;
 import org.springframework.retry.annotation.Retryable;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,7 +35,6 @@ public class DbAuditService implements AuditService
 
   @Override
   @Transactional
-  @Async
   @Retryable
   public void audit(final AuditInfo auditInfo)
   {
@@ -45,8 +43,6 @@ public class DbAuditService implements AuditService
 
   @Override
   @Transactional
-  @Async
-  @Retryable
   public void auditBatch(final Collection<AuditInfo> auditInfos) throws Exception
   {
     final Set<AuditInfoEntity> audits = auditInfos
@@ -62,12 +58,5 @@ public class DbAuditService implements AuditService
   public void recover(final Exception ex, final AuditInfo auditInfo) throws JsonProcessingException
   {
     auditRecovery.logFailed(auditInfo, ex);
-  }
-
-  @Override
-  @Recover
-  public void recoverBatch(final Exception ex, final Collection<AuditInfo> auditInfos) throws Exception
-  {
-    auditInfos.forEach(a -> auditRecovery.logFailed(a, ex));
   }
 }
