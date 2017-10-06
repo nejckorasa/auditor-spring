@@ -1,5 +1,6 @@
 package com.marand.auditor.db.model
 
+import java.util.*
 import javax.persistence.*
 
 /**
@@ -8,20 +9,31 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "audit_info")
-class AuditInfoEntity {
+data class AuditInfoEntity(
+        @Id
+        @GeneratedValue(strategy = GenerationType.AUTO)
+        var id: Long? = null,
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    var id: Long? = null
+        @Column(nullable = false)
+        var sender: String? = null,
 
-    var sender: String? = null
-    var userId: String? = null
-    var userName: String? = null
-    var returnResult: String? = null
-    var method: String? = null
-    var parameters: String? = null
+        @Column(nullable = false)
+        var traceId: String? = null,
 
+        @Column(nullable = false)
+        var requestId: String? = null,
 
-    override fun toString() =
-            "AuditInfoEntity(id=$id, sender=$sender, userId=$userId, userName=$userName, returnResult=$returnResult, method=$method, parameters=$parameters)"
-}
+        @Column(nullable = false)
+        var requestTime: Date? = null,
+
+        @Column(nullable = false)
+        var method: String? = null,
+
+        var arguments: String? = null,
+        var result: String? = null,
+
+        @Column(nullable = false)
+        var userId: String? = null,
+
+        @Column(nullable = false)
+        var userName: String? = null)

@@ -17,19 +17,23 @@ open class AuditInfoMapper {
             sender = auditInfo.sender
             userName = auditInfo.user
             userId = auditInfo.userId
-            parameters = auditInfo.parameters
-            returnResult = auditInfo.returnResult
+            arguments = auditInfo.arguments
+            requestTime = auditInfo.requestTime
+            result = auditInfo.result
+            traceId = auditInfo.traceId
+            requestId = auditInfo.requestId
         }
 
 
-        fun toDto(auditInfoEntity: AuditInfoEntity): AuditInfo = AuditInfo().apply {
-
-            method = auditInfoEntity.method
-            sender = auditInfoEntity.sender
-            user = auditInfoEntity.userName
-            userId = auditInfoEntity.userId
-            parameters = auditInfoEntity.parameters
-            returnResult = auditInfoEntity.returnResult
-        }
+        fun toDto(auditInfoEntity: AuditInfoEntity): AuditInfo = AuditInfo(
+                auditInfoEntity.sender,
+                auditInfoEntity.traceId,
+                auditInfoEntity.requestId,
+                auditInfoEntity.requestTime,
+                auditInfoEntity.method,
+                auditInfoEntity.arguments,
+                auditInfoEntity.result,
+                auditInfoEntity.userId,
+                auditInfoEntity.userName)
     }
 }

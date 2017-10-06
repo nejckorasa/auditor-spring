@@ -1,0 +1,10 @@
+
+# DEV - disabled security, enable it in production!!
+security.ignored=/**
+management.security.enabled=false
+
+# DB config
+spring.datasource.url= ##
+spring.datasource.username= ##
+spring.datasource.password= ##
+spring.datasource.driver-class-name=oracle.jdbc.driver.OracleDriver
