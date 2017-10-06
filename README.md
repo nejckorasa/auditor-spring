@@ -2,7 +2,7 @@
 
 Spring boot application used to audit (trace) user requests. 
 
-- Listener for JMS queue reads data and stores it to database/file - this option is configurable (or it will be, if not yet :))
+- Listener for JMS queue reads data and stores it to database/file - this option is configurable via spring profiles (**db-audit**, **file-audit**)
 - Batch saving to permanent storage location
 
 
