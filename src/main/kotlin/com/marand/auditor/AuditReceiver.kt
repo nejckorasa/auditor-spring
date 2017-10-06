@@ -12,6 +12,6 @@ import org.springframework.stereotype.Component
 @Component
 class AuditReceiver(private val auditService: AuditService) {
 
-    @JmsListener(destination = "auditQueue")
+    @JmsListener(destination = "auditQueue", concurrency = "2-15")
     fun receiveMessage(auditInfo: AuditInfo) = auditService.audit(auditInfo)
 }

@@ -1,15 +1,33 @@
+spring.application.name=auditor
 
-# DEV - disabled security, enable it in production!!
-security.ignored=/**
-management.security.enabled=false
+endpoints.shutdown.sensitive=false
+endpoints.shutdown.enabled=true
 
-# DB config
+# PROFILES config
+#
+#
+#   Required profiles:
+#
+#   - AUDIT MODE:
+#       (file-audit, db-audit)
+
+spring.profiles.active=file-audit
+
+# DB config - only if db-audit is selected
+
 spring.datasource.url= ##
 spring.datasource.username= ##
 spring.datasource.password= ##
 spring.datasource.driver-class-name=oracle.jdbc.driver.OracleDriver
 
-# DB auto create table
+# DB auto create table - only if db-audit is selected
+
 spring.datasource.continue-on-error=true
 spring.datasource.initialize=true
 spring.datasource.platform=oracle
+
+
+# SECURITY config
+
+security.ignored=/**
+management.security.enabled=false
