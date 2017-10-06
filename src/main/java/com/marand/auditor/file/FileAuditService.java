@@ -46,7 +46,7 @@ public class FileAuditService implements AuditService
   @Override
   @Async
   @Retryable
-  public void audit(final Collection<AuditInfo> auditInfos) throws Exception
+  public void auditBatch(final Collection<AuditInfo> auditInfos) throws Exception
   {
     for (final AuditInfo auditInfo : auditInfos)
     {
@@ -63,7 +63,7 @@ public class FileAuditService implements AuditService
 
   @Override
   @Recover
-  public void recover(final Exception ex, final Collection<AuditInfo> auditInfos) throws Exception
+  public void recoverBatch(final Exception ex, final Collection<AuditInfo> auditInfos) throws Exception
   {
     auditInfos.forEach(a -> auditRecovery.logFailed(a, ex));
   }

@@ -47,7 +47,7 @@ public class DbAuditService implements AuditService
   @Transactional
   @Async
   @Retryable
-  public void audit(final Collection<AuditInfo> auditInfos) throws Exception
+  public void auditBatch(final Collection<AuditInfo> auditInfos) throws Exception
   {
     final Set<AuditInfoEntity> audits = auditInfos
         .stream()
@@ -66,7 +66,7 @@ public class DbAuditService implements AuditService
 
   @Override
   @Recover
-  public void recover(final Exception ex, final Collection<AuditInfo> auditInfos) throws Exception
+  public void recoverBatch(final Exception ex, final Collection<AuditInfo> auditInfos) throws Exception
   {
     auditInfos.forEach(a -> auditRecovery.logFailed(a, ex));
   }
