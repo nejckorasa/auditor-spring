@@ -8,3 +8,8 @@ spring.datasource.url= ##
 spring.datasource.username= ##
 spring.datasource.password= ##
 spring.datasource.driver-class-name=oracle.jdbc.driver.OracleDriver
+
+# DB auto create table
+spring.datasource.continue-on-error=true
+spring.datasource.initialize=true
+spring.datasource.platform=oracle

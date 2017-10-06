@@ -1,0 +1,15 @@
+create table AUDIT_INFO
+(
+	ID NUMBER(19) not null primary key,
+	SENDER VARCHAR2(255 char) not null,
+	USER_NAME VARCHAR2(255 char) not null,
+	RESULT VARCHAR2(255 char),
+	ERROR_MESSAGE VARCHAR2(255 char),
+	ARGUMENTS VARCHAR2(255 char),
+	METHOD VARCHAR2(255 char) not null,
+	REQUEST_ID VARCHAR2(255 char) not null,
+	TRACE_ID VARCHAR2(255 char) not null,
+	REQUEST_TIME TIMESTAMP(6),
+	EXECUTION_TIME NUMBER
+);
+
