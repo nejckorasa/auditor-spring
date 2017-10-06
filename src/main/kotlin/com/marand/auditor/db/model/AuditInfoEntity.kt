@@ -31,9 +31,7 @@ data class AuditInfoEntity(
 
         var arguments: String? = null,
         var result: String? = null,
-
-        @Column(nullable = false)
-        var userId: String? = null,
+        var executionTime: Long? = null,
 
         @Column(nullable = false)
         var userName: String? = null)

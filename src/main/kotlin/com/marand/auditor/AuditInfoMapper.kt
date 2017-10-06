@@ -16,7 +16,7 @@ open class AuditInfoMapper {
             method = auditInfo.method
             sender = auditInfo.sender
             userName = auditInfo.user
-            userId = auditInfo.userId
+            executionTime = auditInfo.executionTime
             arguments = auditInfo.arguments
             requestTime = auditInfo.requestTime
             result = auditInfo.result
@@ -33,7 +33,7 @@ open class AuditInfoMapper {
                 auditInfoEntity.method,
                 auditInfoEntity.arguments,
                 auditInfoEntity.result,
-                auditInfoEntity.userId,
+                auditInfoEntity.executionTime,
                 auditInfoEntity.userName)
     }
 }
