@@ -2,8 +2,8 @@
 
 Spring boot application used to audit (trace) user requests. 
 
-- Listener for JMS queue reads data and stores it to database/file - this option is configurable via spring profiles (**db-audit**, **file-audit**)
-- Batch saving to permanent storage location
+- Listener for JMS queue reads data and stores it to database/file - this option is configurable via spring profiles (`db-audit`, `file-audit`)
+- Direct saving to permanent storage location
 
 
 ## REST API
@@ -11,7 +11,7 @@ Spring boot application used to audit (trace) user requests.
 Two API edpoints are available:
 
 - **/audit/mq** - Receives single audit info that is pushed into JMS
-- **/audit/direct** - Receives a batch of audit info elements and saves them directly to permanent location (this can either be file or database)
+- **/audit/direct** - Receives multiple audit info elements and saves them directly to permanent location (this can either be file or database)
 
 ## Recover option 
 
@@ -27,3 +27,8 @@ Auditor uses only one table (audit_info) that is automatically created if it doe
 ## COMMING soon
 
 - **Mail notifications**
+
+# Setup
+
+- Download
+- create `application.properties` file (template is prepeared as `application.properties-TEMPLATE`)
