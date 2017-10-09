@@ -28,11 +28,16 @@ public class FileAuditService implements AuditService
 
   private final AuditRecovery auditRecovery;
   private final ObjectMapper objectMapper;
+  private final AuditInfoMapper auditInfoMapper;
 
-  public FileAuditService(final AuditRecovery auditRecovery, final ObjectMapper objectMapper)
+  public FileAuditService(
+      final AuditRecovery auditRecovery,
+      final ObjectMapper objectMapper,
+      final AuditInfoMapper auditInfoMapper)
   {
     this.auditRecovery = auditRecovery;
     this.objectMapper = objectMapper;
+    this.auditInfoMapper = auditInfoMapper;
   }
 
   @Override
@@ -40,7 +45,7 @@ public class FileAuditService implements AuditService
   @Retryable
   public void audit(final AuditInfo auditInfo) throws JsonProcessingException
   {
-    AUDIT_LOG.info(objectMapper.writeValueAsString(AuditInfoMapper.Companion.fromDto(auditInfo)));
+    AUDIT_LOG.info(objectMapper.writeValueAsString(auditInfoMapper.fromDto(auditInfo)));
   }
 
   @Override
@@ -48,7 +53,7 @@ public class FileAuditService implements AuditService
   {
     for (final AuditInfo auditInfo : auditInfos)
     {
-      AUDIT_LOG.info(objectMapper.writeValueAsString(AuditInfoMapper.Companion.fromDto(auditInfo)));
+      AUDIT_LOG.info(objectMapper.writeValueAsString(auditInfo));
     }
   }
 

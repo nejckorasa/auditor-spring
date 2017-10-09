@@ -5,6 +5,7 @@ import com.marand.auditor.dto.AuditInfo
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiParam
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.MediaType
 import org.springframework.jms.core.JmsTemplate
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -18,7 +19,7 @@ import javax.validation.Valid
  */
 
 @RestController
-@RequestMapping("/audit")
+@RequestMapping("/audit", consumes = arrayOf(MediaType.APPLICATION_JSON_VALUE))
 open class AuditController @Autowired
 constructor(private val jmsTemplate: JmsTemplate, private val auditService: AuditService) {
 

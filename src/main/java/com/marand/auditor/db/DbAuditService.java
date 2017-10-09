@@ -26,11 +26,16 @@ public class DbAuditService implements AuditService
 {
   private final AuditInfoRepository auditInfoRepository;
   private final AuditRecovery auditRecovery;
+  private final AuditInfoMapper auditInfoMapper;
 
-  public DbAuditService(final AuditInfoRepository auditInfoRepository, final AuditRecovery auditRecovery)
+  public DbAuditService(
+      final AuditInfoRepository auditInfoRepository,
+      final AuditRecovery auditRecovery,
+      final AuditInfoMapper auditInfoMapper)
   {
     this.auditInfoRepository = auditInfoRepository;
     this.auditRecovery = auditRecovery;
+    this.auditInfoMapper = auditInfoMapper;
   }
 
   @Override
@@ -38,7 +43,7 @@ public class DbAuditService implements AuditService
   @Retryable
   public void audit(final AuditInfo auditInfo)
   {
-    auditInfoRepository.save(AuditInfoMapper.Companion.fromDto(auditInfo));
+    auditInfoRepository.save(auditInfoMapper.fromDto(auditInfo));
   }
 
   @Override
@@ -47,7 +52,7 @@ public class DbAuditService implements AuditService
   {
     final Set<AuditInfoEntity> audits = auditInfos
         .stream()
-        .map(AuditInfoMapper.Companion::fromDto)
+        .map(auditInfoMapper::fromDto)
         .collect(Collectors.toSet());
 
     auditInfoRepository.save(audits);

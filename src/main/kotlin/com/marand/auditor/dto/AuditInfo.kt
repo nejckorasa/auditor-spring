@@ -14,7 +14,7 @@ data class AuditInfo(
         @field:NotBlank var requestId: String? = null,
         @field:NotNull var requestTime: Date? = null,
         var method: String? = null,
-        var arguments: String? = null,
+        var arguments: Map<String, String>? = null,
         var result: String? = null,
         var executionTime: Long? = null,
         @field:NotBlank var user: String? = null)
