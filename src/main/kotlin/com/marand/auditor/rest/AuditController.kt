@@ -34,6 +34,6 @@ constructor(private val jmsTemplate: JmsTemplate, private val auditService: Audi
     @ApiOperation(value = "Post Multiple Audit Info - save directly")
     open fun auditDirect(@ApiParam(name = "auditInfo", required = true) @Valid @RequestBody auditInfos: List<AuditInfo>) {
 
-        auditService.auditBatch(auditInfos)
+        auditService.audit(auditInfos)
     }
 }

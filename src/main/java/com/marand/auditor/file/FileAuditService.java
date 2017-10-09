@@ -49,7 +49,7 @@ public class FileAuditService implements AuditService
   }
 
   @Override
-  public void auditBatch(final Collection<AuditInfo> auditInfos) throws Exception
+  public void audit(final Collection<AuditInfo> auditInfos) throws Exception
   {
     for (final AuditInfo auditInfo : auditInfos)
     {

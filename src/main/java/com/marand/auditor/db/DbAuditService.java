@@ -48,7 +48,7 @@ public class DbAuditService implements AuditService
 
   @Override
   @Transactional
-  public void auditBatch(final Collection<AuditInfo> auditInfos) throws Exception
+  public void audit(final Collection<AuditInfo> auditInfos) throws Exception
   {
     final Set<AuditInfoEntity> audits = auditInfos
         .stream()
