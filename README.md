@@ -24,11 +24,13 @@ In case of failed saving after certain number of attempts. Failed requests are l
 
 Auditor uses only one table (audit_info) that is automatically created if it does not yet exist
 
-## COMMING soon
 
-- **Mail notifications**
 
 # Setup
 
 - Download
-- create `application.properties` file (template is prepeared as `application.properties-TEMPLATE`)
+- Create `application.properties` file (template is prepeared as `application.properties-TEMPLATE`)
+- Build project via Maven (`mvn install`)
+- Run created jar via (for instance) `java -jar auditor-0.0.1-SNAPSHOT-2017-10-09-10-48.jar`
+
+
