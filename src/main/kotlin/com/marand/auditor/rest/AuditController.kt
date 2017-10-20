@@ -1,7 +1,7 @@
 package com.marand.auditor.rest
 
-import com.marand.auditor.AuditService
 import com.marand.auditor.dto.AuditInfo
+import com.marand.auditor.saver.AuditService
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiParam
 import org.springframework.beans.factory.annotation.Autowired

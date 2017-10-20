@@ -1,6 +1,7 @@
 package com.marand.auditor
 
 import com.marand.auditor.dto.AuditInfo
+import com.marand.auditor.saver.AuditService
 import org.springframework.jms.annotation.JmsListener
 import org.springframework.stereotype.Component
 
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Component
  */
 
 @Component
-class AuditReceiver(private val auditService: AuditService) {
+class JmsListener(private val auditService: AuditService) {
 
     @JmsListener(destination = "auditQueue", concurrency = "2-15")
     fun receiveMessage(auditInfo: AuditInfo) = auditService.audit(auditInfo)

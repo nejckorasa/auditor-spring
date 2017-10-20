@@ -1,61 +1,60 @@
-package com.marand.auditor.db;
+package com.marand.auditor.saver.file;
 
 import java.util.Collection;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marand.auditor.AuditRecovery;
-import com.marand.auditor.AuditService;
-import com.marand.auditor.db.model.AuditInfoEntity;
 import com.marand.auditor.dto.AuditInfo;
 import com.marand.auditor.dto.AuditInfoMapper;
+import com.marand.auditor.saver.AuditService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Profile;
 import org.springframework.retry.annotation.Recover;
 import org.springframework.retry.annotation.Retryable;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Nejc Korasa
  */
 
 @Service
-@Profile("db-audit")
-public class DbAuditService implements AuditService
+@Profile("file-audit")
+public class FileAuditService implements AuditService
 {
-  private final AuditInfoRepository auditInfoRepository;
+  private static final Logger AUDIT_LOG = LoggerFactory.getLogger("audit-log");
+
   private final AuditRecovery auditRecovery;
+  private final ObjectMapper objectMapper;
   private final AuditInfoMapper auditInfoMapper;
 
-  public DbAuditService(
-      final AuditInfoRepository auditInfoRepository,
+  public FileAuditService(
       final AuditRecovery auditRecovery,
+      final ObjectMapper objectMapper,
       final AuditInfoMapper auditInfoMapper)
   {
-    this.auditInfoRepository = auditInfoRepository;
     this.auditRecovery = auditRecovery;
+    this.objectMapper = objectMapper;
     this.auditInfoMapper = auditInfoMapper;
   }
 
   @Override
-  @Transactional
+  @Async
   @Retryable
-  public void audit(final AuditInfo auditInfo)
+  public void audit(final AuditInfo auditInfo) throws JsonProcessingException
   {
-    auditInfoRepository.save(auditInfoMapper.fromDto(auditInfo));
+    AUDIT_LOG.info(objectMapper.writeValueAsString(auditInfoMapper.fromDto(auditInfo)));
   }
 
   @Override
-  @Transactional
   public void audit(final Collection<AuditInfo> auditInfos) throws Exception
   {
-    final Set<AuditInfoEntity> audits = auditInfos
-        .stream()
-        .map(auditInfoMapper::fromDto)
-        .collect(Collectors.toSet());
-
-    auditInfoRepository.save(audits);
+    for (final AuditInfo auditInfo : auditInfos)
+    {
+      AUDIT_LOG.info(objectMapper.writeValueAsString(auditInfo));
+    }
   }
 
   @Override

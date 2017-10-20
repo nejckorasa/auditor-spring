@@ -5,20 +5,25 @@ endpoints.shutdown.enabled=true
 
 # PROFILES config
 #
-#
 #   Required profiles:
 #
 #   - AUDIT MODE:
 #       (file-audit, db-audit)
+#
+#   Optional profiles:
+#
+#   - STREAM MODE:
+#       (stream-on) - stream-on turns on spring cloud stream to handle messages
+#
 
-spring.profiles.active=file-audit
+spring.profiles.active=file-audit, stream-on
 
 # DB config - only if db-audit is selected
 
 spring.datasource.url= ##
 spring.datasource.username= ##
 spring.datasource.password= ##
-spring.datasource.driver-class-name=oracle.jdbc.driver.OracleDriver
+spring.datasource.driver-class-name= ##
 
 # DB auto create table - only if db-audit is selected
 
@@ -27,7 +32,11 @@ spring.datasource.initialize=true
 spring.datasource.platform=oracle
 
 
-# SECURITY config
+# STREAM config
 
-security.ignored=/**
-management.security.enabled=false
+#spring.cloud.stream.kafka.binder.configuration.security.protocol=SASL_PLAINTEXT
+spring.cloud.stream.kafka.binder.brokers= ##
+spring.cloud.stream.kafka.binder.zkNodes= ##
+spring.cloud.stream.bindings.input.destination=auditingtopic # configurable
+spring.cloud.stream.bindings.input.group=auditers # configurable
+spring.cloud.stream.bindings.input.content-type=application/json # configurable
