@@ -23,10 +23,12 @@ open class AuditInfoMapper(private val objectMapper: ObjectMapper) {
         result = auditInfo.result
         traceId = auditInfo.traceId
         requestId = auditInfo.requestId
+        errorMessage = auditInfo.error
     }
 
 
     open fun toDto(auditInfoEntity: AuditInfoEntity): AuditInfo = AuditInfo(
+
             auditInfoEntity.sender,
             auditInfoEntity.traceId,
             auditInfoEntity.requestId,
@@ -35,5 +37,6 @@ open class AuditInfoMapper(private val objectMapper: ObjectMapper) {
             objectMapper.readValue(auditInfoEntity.arguments, object : TypeReference<Map<String, Any>>() {}),
             auditInfoEntity.result,
             auditInfoEntity.executionTime,
+            auditInfoEntity.errorMessage,
             auditInfoEntity.userName)
 }
