@@ -6,23 +6,19 @@
 
     <appender name="FILE-AUDIT" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>audit.log</file>
-        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <Pattern>
-                %d{yyyy-MM-dd HH:mm:ss};%msg%n
-            </Pattern>
-        </encoder>
-
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!-- rollover daily -->
-            <fileNamePattern>audit.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>1MB</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>audit-%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <maxFileSize>100MB</maxFileSize>
+            <!--<maxHistory>30</maxHistory>-->
+            <!--<totalSizeCap>1GB</totalSizeCap>-->
         </rollingPolicy>
+        <encoder>
+            <pattern>%msg%n</pattern>
+        </encoder>
     </appender>
 
-    <logger name="audit-log" level="info" additivity="false">
-        <appender-ref ref="FILE-AUDIT"/>
+    <logger name="audit-log" level="INFO" additivity="false">
+        <appender-ref ref="FILE-AUDIT" />
     </logger>
 
 </configuration>
