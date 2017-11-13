@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Profile;
  * @author Nejc Korasa
  */
 
-@Profile("stream-on")
+@Profile("stream")
 @Configuration
 @EnableBinding(Sink.class)
 public class MessageReceiver

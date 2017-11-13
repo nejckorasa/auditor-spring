@@ -13,10 +13,10 @@ endpoints.shutdown.enabled=true
 #   Optional profiles:
 #
 #   - STREAM MODE:
-#       (stream-on) - stream-on turns on spring cloud stream to handle messages
+#       (stream) - stream-on turns on spring cloud stream to handle messages
 #
 
-spring.profiles.active=file-audit, stream-on
+spring.profiles.active=file-audit, stream
 
 # DB config - only if db-audit is selected
 
