@@ -1,6 +1,5 @@
 package com.marand.auditor.dto
 
-import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.marand.auditor.db.model.AuditInfoEntity
 import org.springframework.stereotype.Component
@@ -12,31 +11,7 @@ import org.springframework.stereotype.Component
 @Component
 open class AuditInfoMapper(private val objectMapper: ObjectMapper) {
 
-    open fun fromDto(auditInfo: AuditInfo): AuditInfoEntity = AuditInfoEntity().apply {
+    open fun fromDto(auditInfo: AuditInfo): AuditInfoEntity = auditInfo.toEntity(objectMapper)
 
-        method = auditInfo.method
-        sender = auditInfo.sender
-        userName = auditInfo.user
-        executionTime = auditInfo.executionTime
-        arguments = objectMapper.writeValueAsString(auditInfo.arguments)
-        requestTime = auditInfo.requestTime
-        result = auditInfo.result
-        traceId = auditInfo.traceId
-        requestId = auditInfo.requestId
-        errorMessage = auditInfo.error
-    }
-
-
-    open fun toDto(auditInfoEntity: AuditInfoEntity): AuditInfo = AuditInfo(
-
-            auditInfoEntity.sender,
-            auditInfoEntity.traceId,
-            auditInfoEntity.requestId,
-            auditInfoEntity.requestTime,
-            auditInfoEntity.method,
-            objectMapper.readValue(auditInfoEntity.arguments, object : TypeReference<Map<String, Any>>() {}),
-            auditInfoEntity.result,
-            auditInfoEntity.executionTime,
-            auditInfoEntity.errorMessage,
-            auditInfoEntity.userName)
+    open fun toDto(auditInfoEntity: AuditInfoEntity): AuditInfo = auditInfoEntity.toDto(objectMapper)
 }
