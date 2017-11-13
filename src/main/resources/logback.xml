@@ -17,8 +17,25 @@
         </encoder>
     </appender>
 
+    <appender name="FAILED-AUDIT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>failed.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>failed-%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <maxFileSize>100MB</maxFileSize>
+            <!--<maxHistory>30</maxHistory>-->
+            <!--<totalSizeCap>1GB</totalSizeCap>-->
+        </rollingPolicy>
+        <encoder>
+            <pattern>%msg%n</pattern>
+        </encoder>
+    </appender>
+
     <logger name="audit-log" level="INFO" additivity="false">
         <appender-ref ref="FILE-AUDIT" />
+    </logger>
+
+    <logger name="failed-log" level="INFO" additivity="false">
+        <appender-ref ref="FAILED-AUDIT" />
     </logger>
 
 </configuration>
