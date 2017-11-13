@@ -11,6 +11,7 @@ import com.marand.auditor.saver.AuditService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Profile;
+import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Recover;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.scheduling.annotation.Async;
@@ -42,7 +43,7 @@ public class FileAuditService implements AuditService
 
   @Override
   @Async
-  @Retryable
+  @Retryable(backoff = @Backoff(delay = 5000))
   public void audit(final AuditInfo auditInfo) throws JsonProcessingException
   {
     AUDIT_LOG.info(objectMapper.writeValueAsString(auditInfoMapper.fromDto(auditInfo)));

@@ -12,6 +12,7 @@ import com.marand.auditor.dto.AuditInfo;
 import com.marand.auditor.dto.AuditInfoMapper;
 import com.marand.auditor.saver.AuditService;
 import org.springframework.context.annotation.Profile;
+import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Recover;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
@@ -41,7 +42,7 @@ public class DbAuditService implements AuditService
 
   @Override
   @Transactional
-  @Retryable
+  @Retryable(backoff = @Backoff(delay = 5000))
   public void audit(final AuditInfo auditInfo)
   {
     auditInfoRepository.save(auditInfoMapper.fromDto(auditInfo));
