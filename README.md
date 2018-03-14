@@ -1,11 +1,10 @@
 # auditor-spring
 
 ##### Spring boot application used to audit (trace) user requests. 
-> Solves persistent tracing requirement in microservice architecture.
-> 
-> Tracing service should run in separate machine (This is even more important if file audit is chosen) 
-> 
-> Backing up data saved by auditor is also recommended
+
+Solves persistent tracing requirement in microservice architecture.
+Tracing service should run in separate machine (This is even more important if file audit is chosen).
+Backing up data saved by auditor is also recommended.
 
 
 
